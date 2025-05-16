@@ -21,4 +21,44 @@ class VamToWkgConverterServiceTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    void convertVamToWkg_riderWeightZero() {
+        WkgResponseRecord actual = vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(1606, 8.1, 0));
+        WkgResponseRecord expected = new WkgResponseRecord(5.72, 0, "");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void convertVamToWkg_stravaDataKOB1() {
+        WkgResponseRecord actual = vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(1293, 7.1, 62));
+        WkgResponseRecord expected = new WkgResponseRecord(4.77, 295, "");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void convertVamToWkg_stravaDataKOB2() {
+        WkgResponseRecord actual = vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(958, 4.2, 62));
+        WkgResponseRecord expected = new WkgResponseRecord(3.96, 245, "");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void convertVamToWkg_stravaData_LukeWicklowGap() {
+        WkgResponseRecord actual = vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(579, 5.1, 86));
+        WkgResponseRecord expected = new WkgResponseRecord(2.31, 198, "");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void convertVamToWkg_stravaData_LukeStockingLane() {
+        WkgResponseRecord actual = vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(594, 5.9, 86));
+        WkgResponseRecord expected = new WkgResponseRecord(2.29, 197, "");
+
+        assertEquals(expected, actual);
+    }
 }
