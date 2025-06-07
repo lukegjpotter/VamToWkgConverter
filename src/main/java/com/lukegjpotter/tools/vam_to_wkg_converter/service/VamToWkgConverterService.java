@@ -12,9 +12,13 @@ public class VamToWkgConverterService {
 
         double wattsPerKilo = vamRequestRecord.verticalAscentMeters() / ((2 + vamRequestRecord.gradient() / 10) * 100);
 
+        Integer rawWatts = null;
+        if (vamRequestRecord.riderWeight().isPresent() && vamRequestRecord.riderWeight().get() >= 0)
+            rawWatts = (int) (wattsPerKilo * vamRequestRecord.riderWeight().get());
+
         return new WkgResponseRecord(
                 Double.parseDouble(String.format("%.2f", wattsPerKilo)),
-                (int) (wattsPerKilo * vamRequestRecord.riderWeight()),
+                rawWatts,
                 "");
     }
 }

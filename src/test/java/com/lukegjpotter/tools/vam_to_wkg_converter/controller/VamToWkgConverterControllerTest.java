@@ -8,14 +8,13 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class VamToWkgConverterControllerTest {
-
-    public VamToWkgConverterControllerTest() {
-    }
 
     @BeforeAll
     static void beforeAll() {
@@ -49,7 +48,7 @@ class VamToWkgConverterControllerTest {
     void convert_goldenPath() {
         given()
                 .contentType(ContentType.JSON)
-                .body(new VamRequestRecord(1606, 8.1, 68))
+                .body(new VamRequestRecord(1606, 8.1, Optional.of(68.0)))
                 .when()
                 .post("/convert")
                 .then()
@@ -60,5 +59,19 @@ class VamToWkgConverterControllerTest {
                         "errorMessage", emptyString());
     }
 
-    //todo Cases: no rider weight, no vam or gradient, string inputs and 3XX error codes, max inputs.
+    @Test
+    void convert_noRiderWeight() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new VamRequestRecord(1800, 9.5, null))
+                .when()
+                .post("/convert")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(
+                        "wattsPerKilo", is(6.1F),
+                        "rawWatts", nullValue(),
+                        "errorMessage", emptyString());
+    }
+    //todo Cases: no rider weight, negative inputs, no vam or gradient, string inputs and 3XX error codes, max inputs.
 }
