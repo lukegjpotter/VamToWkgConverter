@@ -16,8 +16,8 @@ It has a prefilled JSON Body ready to recieve your inputs.
 Alternatively, you can use `curl`:
 
     curl -X POST https://vamtowkgconverter.onrender.com/convert \
-    -H 'Content-type:application/json' \
-    -d '{"verticalAscentMeters": 1606, "gradient": 8.1, "riderWeight": 68.0}' | json
+         -H 'Content-type:application/json' \
+         -d '{"verticalAscentMeters": 1606, "gradient": 8.1, "riderWeight": 68.0}' | json
 
 Ensure that you install the `json` tool to format/pretty print the Response.
 
