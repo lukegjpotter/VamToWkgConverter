@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
-
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
@@ -48,7 +46,7 @@ class VamToWkgConverterControllerTest {
     void convert_goldenPath() {
         given()
                 .contentType(ContentType.JSON)
-                .body(new VamRequestRecord(1606, 8.1, Optional.of(68.0)))
+                .body(new VamRequestRecord(1606, 8.1, 68.0))
                 .when()
                 .post("/convert")
                 .then()
@@ -60,7 +58,22 @@ class VamToWkgConverterControllerTest {
     }
 
     @Test
-    void convert_noRiderWeight() {
+    void convert_riderWeight_zero() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new VamRequestRecord(1800, 9.5, 0.0))
+                .when()
+                .post("/convert")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(
+                        "wattsPerKilo", is(6.1F),
+                        "rawWatts", nullValue(),
+                        "errorMessage", emptyString());
+    }
+
+    @Test
+    void convert_riderWeight_null() {
         given()
                 .contentType(ContentType.JSON)
                 .body(new VamRequestRecord(1800, 9.5, null))

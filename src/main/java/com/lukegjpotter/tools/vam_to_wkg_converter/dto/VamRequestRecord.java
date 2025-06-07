@@ -1,9 +1,10 @@
 package com.lukegjpotter.tools.vam_to_wkg_converter.dto;
 
-import java.util.Optional;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 
 public record VamRequestRecord(
-        double verticalAscentMeters,
-        double gradient,
-        Optional<Double> riderWeight) {
+        @NotNull double verticalAscentMeters,
+        @NotNull double gradient,
+        @Nullable Double riderWeight) {
 }
