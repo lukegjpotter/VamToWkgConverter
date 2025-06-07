@@ -3,6 +3,8 @@ package com.lukegjpotter.tools.vam_to_wkg_converter.controller;
 import com.lukegjpotter.tools.vam_to_wkg_converter.dto.VamRequestRecord;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -131,5 +133,24 @@ class VamToWkgConverterControllerTest {
                         "rawWatts", nullValue(),
                         "errorMessage", is("verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided."));
     }
-    //todo Cases: string inputs and 4XX error codes
+
+    @Test
+    void convert_stringInputs() throws JSONException {
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("verticalAscentMeters", "1606");
+        requestParams.put("gradient", "8.1");
+        requestParams.put("riderWeight", 68.0);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestParams.toString())
+                .when()
+                .post("/convert")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(
+                        "wattsPerKilo", is(5.72F),
+                        "rawWatts", is(388),
+                        "errorMessage", emptyString());
+    }
 }
