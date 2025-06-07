@@ -23,6 +23,18 @@ Ensure that you install the `json` tool to format/pretty print the Response.
 
     sudo npm i -g json
 
+You should get a response that looks like this:
+
+    {
+      "wattsPerKilo": 5.72,
+      "rawWatts": 388,
+      "errorMessage": ""
+    }
+
+## Swagger / Spring-Doc / OpenDoc
+
+To view the Swagger UI, click this link to view it on Render: [Swagger UI](https://vamtowkgconverter.onrender.com/swagger-ui/index.html).
+
 ## Build, Run and Test
 
 To Do
