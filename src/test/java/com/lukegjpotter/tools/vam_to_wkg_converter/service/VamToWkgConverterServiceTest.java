@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class VamToWkgConverterServiceTest {
@@ -52,5 +53,13 @@ class VamToWkgConverterServiceTest {
         WkgResponseRecord expected = new WkgResponseRecord(2.31, null, "");
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void convertVamToWkg_negativeValues() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(-1606, -8.1, -86.0)),
+                "verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided.");
     }
 }

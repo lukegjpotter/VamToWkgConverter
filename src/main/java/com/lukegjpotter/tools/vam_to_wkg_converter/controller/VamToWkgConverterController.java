@@ -32,9 +32,9 @@ public class VamToWkgConverterController {
             else return ResponseEntity.badRequest().body(wkgResponseRecord);
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(new WkgResponseRecord(
-                    0.0,
-                    0,
-                    "ERROR"));
+                    null,
+                    null,
+                    exception.getMessage()));
         }
     }
 
