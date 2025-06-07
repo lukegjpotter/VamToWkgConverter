@@ -101,5 +101,35 @@ class VamToWkgConverterControllerTest {
                         "rawWatts", nullValue(),
                         "errorMessage", is("verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided."));
     }
-    //todo Cases: no vam or gradient, string inputs and 3XX error codes, max inputs.
+
+    @Test
+    void convert_nullVamAndGradient() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new VamRequestRecord(null, null, 65.0))
+                .when()
+                .post("/convert")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "wattsPerKilo", nullValue(),
+                        "rawWatts", nullValue(),
+                        "errorMessage", is("verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided."));
+    }
+
+    @Test
+    void convert_zeroVamAndGradient() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new VamRequestRecord(0, 0.0, 65.0))
+                .when()
+                .post("/convert")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "wattsPerKilo", nullValue(),
+                        "rawWatts", nullValue(),
+                        "errorMessage", is("verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided."));
+    }
+    //todo Cases: string inputs and 4XX error codes
 }

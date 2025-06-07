@@ -12,7 +12,7 @@ public class VamToWkgConverterService {
 
         double riderWeight = (vamRequestRecord.riderWeight() == null) ? 0.0 : vamRequestRecord.riderWeight();
 
-        if (vamRequestRecord.verticalAscentMeters() <= 0 || vamRequestRecord.gradient() <= 0 || riderWeight < 0)
+        if (vamRequestRecord.verticalAscentMeters() == null || vamRequestRecord.gradient() == null || vamRequestRecord.verticalAscentMeters() <= 0 || vamRequestRecord.gradient() <= 0 || riderWeight < 0)
             throw new IllegalArgumentException("verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided.");
 
 

@@ -62,4 +62,20 @@ class VamToWkgConverterServiceTest {
                 () -> vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(-1606, -8.1, -86.0)),
                 "verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided.");
     }
+
+    @Test
+    void convertVamToWkg_nullVamAndGradient() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(null, null, 65.0)),
+                "verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided.");
+    }
+
+    @Test
+    void convertVamToWkg_zeroVamAndGradient() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> vamToWkgConverterService.convertVamToWkg(new VamRequestRecord(0, 0.0, 65.0)),
+                "verticalAscentMeters and gradient must be positive numbers. riderWeight is optional, but must be positive if provided.");
+    }
 }
