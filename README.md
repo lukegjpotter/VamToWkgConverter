@@ -1,6 +1,6 @@
-# Fantasy Cycling League Tools
+# VAM to WKG Converter
 
-A suite of Spring Boot REST APIs for a Fantasy Cycling League.
+A Spring Boot REST APIs for a VAM to WKG Converter.
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/lukegjpotter/VamToWkgConverter)
 
