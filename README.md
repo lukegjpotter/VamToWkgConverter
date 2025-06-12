@@ -70,3 +70,10 @@ You can use this Postman Collection, (VAM to WKG
 Converter){https://www.postman.com/bold-moon-552911/vam-to-wkg-converter/collection/6rjgzjb/vam-to-wkg-converter?action=share&creator=3947605&active-environment=3947605-66239eed-fd66-476f-ae05-56f00b94bf18},
 it has the prefilled JSON bodies, and the Render URL configured.
 
+### Spring Doc Open API
+
+Formerly known as Swagger-UI, you can append the `/swagger-ui/index.html` to your URL.
+
+Links: [localhost](http://localhost:8080/swagger-ui/index.html)
+or [Render](https://vamtowkgconverter.onrender.com/swagger-ui/index.html).
+
